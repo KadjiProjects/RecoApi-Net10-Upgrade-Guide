@@ -47,6 +47,22 @@ you target (full decision rules in [02-add-the-library.md](02-add-the-library.md
    static/extension methods. `MappingVerifier` (the AutoMapper `AssertConfigurationIsValid`
    replacement) works identically either way — it only needs a `Func<TSource,TDest>`.
 
+## Other editions of this guide
+
+This multi-file edition (GitHub-native navigation, one GATE per file) is the primary
+edition. Two others exist with identical content, for different contexts:
+
+- **[AUTOMAPPER-REMOVAL-GUIDE.md](AUTOMAPPER-REMOVAL-GUIDE.md)** — a single-file edition.
+  Same content, concatenated into one document with in-page anchor navigation — easier
+  to fetch or paste in one shot when multi-file browsing isn't available (e.g. copying
+  into another AI chat, or an agent that only reads one URL/file).
+- **[automapper-removal-guide.html](automapper-removal-guide.html)** — a styled,
+  single-page HTML rendering with a sticky sidebar table of contents, for reading in a
+  browser. Self-contained (no external assets); open the file directly or view it via
+  GitHub's raw/preview.
+
+All three are kept in sync — pick whichever fits your tool.
+
 ## How to execute (instructions for the LLM)
 
 1. Read [00-ground-rules.md](00-ground-rules.md) completely before touching anything.
