@@ -72,6 +72,16 @@ It does not touch or depend on anything RecoAPI-specific; it's a standalone docu
 that happens to live in this repository because it shares the same underlying library
 (`src/RECO.Mapping/`, described next).
 
+### Fully generic edition — no RecoAPI naming anywhere
+
+📁 **[explicit-mapping/](explicit-mapping/)** is a completely self-contained, RecoAPI-free
+package: the same library under a neutral name (`ExplicitMapping` instead of
+`RECO.Mapping`) with its own build + tests, plus the generic AutoMapper-removal guide with
+every RecoAPI reference removed. Clone the repo and
+`dotnet test explicit-mapping/ExplicitMapping.sln` (8/8 pass), or copy
+`explicit-mapping/src/ExplicitMapping/` straight into your own solution. Use this edition
+if you want nothing tied to the RecoAPI codebase in your history or your copied files.
+
 ## How to execute (instructions for the LLM)
 
 1. Read [00-ground-rules.md](00-ground-rules.md) **completely** before touching
