@@ -23,6 +23,37 @@ Humans can follow it too; it is just deliberately over-specified.
 - End state of the verified baseline run: **build with 0 warnings / 0 errors**, all
   mapping tests green, identical runtime behavior.
 
+## The AutoMapper replacement — also included as real, buildable code
+
+The library the guide has you write (§3, "RECO.Mapping") isn't only described in
+markdown — this repository ships it as an actual, standalone, dependency-free .NET 10
+class library you can build and test right now, no RecoAPI checkout required:
+
+```
+src/RECO.Mapping/            the library — same 7 files as §3, copied verbatim from the
+                              real, working RecoAPI source (not retyped from the guide)
+tests/RECO.Mapping.Tests/    a self-contained NUnit suite: 8 tests demonstrating every
+                              contract (IMappedFrom, IMapsTo, IScalarCopyable,
+                              IDualMapped, the list helpers) against generic demo types,
+                              plus 3 tests proving MappingVerifier catches a forgotten
+                              property and an accidentally-copied ignored property
+RECO.Mapping.sln              solution tying the two together
+```
+
+```bash
+git clone https://github.com/KadjiProjects/RecoApi-Net10-Upgrade-Guide.git
+cd RecoApi-Net10-Upgrade-Guide
+dotnet build RECO.Mapping.sln     # 0 warnings, 0 errors
+dotnet test  RECO.Mapping.sln     # 8/8 passed
+```
+
+The demo types (`PersonDto`/`PersonEntity`) stand in for whatever your domain/EF models
+are — RecoAPI's real mapping partials for `TblCode` etc. follow the exact same shape and
+live in [appendix-a-entity-mappings.md](appendix-a-entity-mappings.md); they aren't
+included as compilable files here because they depend on RecoAPI's private domain and
+persistence model types. Copy `src/RECO.Mapping/` as-is into your own fork (it has zero
+package dependencies), then write one mapping partial per entity following §4.
+
 ## How to execute (instructions for the LLM)
 
 1. Read [00-ground-rules.md](00-ground-rules.md) **completely** before touching
@@ -45,7 +76,7 @@ Humans can follow it too; it is just deliberately over-specified.
 | [00-ground-rules.md](00-ground-rules.md) | Architecture, variance rules, hard rules, prerequisites | §0 |
 | [01-discovery.md](01-discovery.md) | Phase 0: enumerate projects/entities/connection strings → your work lists · GATE 0 | §1 |
 | [02-retarget-and-packages.md](02-retarget-and-packages.md) | Phase 1: TFMs, the package version matrix, SqlClient connection strings, Swashbuckle namespace, email-sink port, nullability fixes · GATE 1 | §2 |
-| [03-mapping-library.md](03-mapping-library.md) | Phase 2: the complete mapping library source (7 files, verbatim) · GATE 2 | §3 |
+| [03-mapping-library.md](03-mapping-library.md) | Phase 2: the complete mapping library source (7 files, verbatim — also buildable at [`src/RECO.Mapping/`](src/RECO.Mapping/)) · GATE 2 | §3 |
 | [04-entity-mappings.md](04-entity-mappings.md) | Phase 3: one mapping file per entity — verbatim for baseline entities, derivation algorithm for the rest · GATE 3 | §4 |
 | [05-rewire-pipeline.md](05-rewire-pipeline.md) | Phase 4: exact edits to Repository, RepositoryFactory, DI, ActionProcessor; delete AutoMapper code · GATE 4 | §5 |
 | [06-verification.md](06-verification.md) | Phase 5: test project, coverage tests, verifier self-tests, final acceptance · GATE 5, smoke test, deployment notes | §6 |
